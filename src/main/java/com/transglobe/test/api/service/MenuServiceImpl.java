@@ -86,13 +86,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Boolean delete(Menu cmd) {
+    public Boolean delete(String menuId) {
     	
-        if (!menuRepository.existsById(cmd.getMenuId())) {
+        if (!menuRepository.existsById(menuId)) {
             return false;
         }
         
-        menuRepository.deleteById(cmd.getMenuId());
+        menuRepository.deleteById(menuId);
         return true;
     }
 }

@@ -17,5 +17,5 @@ public interface MenuService {
 	
 	public Optional<Menu> update(Menu o);
 
-	public Boolean delete(Menu o);
+	public Boolean delete(String id);
 }

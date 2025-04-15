@@ -3,6 +3,7 @@ package com.transglobe.test.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -87,20 +88,20 @@ public class MenuController {
         return ResponseEntity.ok(updatedMenu.get());
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{menuId}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(HttpServletRequest request, HttpServletResponse response,
-            @RequestBody Menu cmd) throws IOException, InterruptedException {
+            @PathVariable("menuId") String menuId) throws IOException, InterruptedException {
         
-        log.info("刪除選單: {}", cmd.getMenuId());
+        log.info("刪除選單: {}", menuId);
         
-        Boolean result = menuService.delete(cmd);
+        Boolean result = menuService.delete(menuId);
         
         if (result == null || !result) {
-            log.warn("找不到要刪除的選單: {}", cmd.getMenuId());
+            log.warn("找不到要刪除的選單: {}", menuId);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("找不到要刪除的選單");
         }
         
-        log.info("選單刪除成功: {}", cmd.getMenuId());
+        log.info("選單刪除成功: {}", menuId);
         return ResponseEntity.ok("選單刪除成功");
     }
 }

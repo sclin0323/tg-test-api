@@ -98,12 +98,12 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional
-    public Boolean delete(Role cmd) {
-        if (!roleRepository.existsById(cmd.getRoleId())) {
+    public Boolean delete(String roleId) {
+        if (!roleRepository.existsById(roleId)) {
             return false;
         }
         
-        roleRepository.deleteById(cmd.getRoleId());
+        roleRepository.deleteById(roleId);
         return true;
     }
 }

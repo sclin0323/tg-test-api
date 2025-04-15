@@ -3,6 +3,7 @@ package com.transglobe.test.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +31,7 @@ public class RoleController {
 
     @Autowired
     RoleService roleService;
+   
 
     @RequestMapping(value = "/read", method = RequestMethod.GET)
     public List<Role> read(HttpServletRequest request, HttpServletResponse response)
@@ -107,21 +109,21 @@ public class RoleController {
         return ResponseEntity.ok(updatedRole.get());
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{roleId}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(HttpServletRequest request, HttpServletResponse response,
-            @RequestBody Role cmd) throws IOException, InterruptedException {
+            @PathVariable("roleId") String roleId) throws IOException, InterruptedException {
         
-        log.info("刪除角色: {}", cmd.getRoleId());
+        log.info("刪除Role: {}", roleId);
         
-        Boolean result = roleService.delete(cmd);
+        Boolean result = roleService.delete(roleId);
         
         if (result == null || !result) {
-            log.warn("找不到要刪除的角色: {}", cmd.getRoleId());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("找不到要刪除的角色");
+            log.warn("找不到要刪除的role: {}", roleId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("找不到要刪除的role");
         }
         
-        log.info("角色刪除成功: {}", cmd.getRoleId());
-        return ResponseEntity.ok("角色刪除成功");
+        log.info("role刪除成功: {}", roleId);
+        return ResponseEntity.ok("role刪除成功");
     }
     
     // 輔助方法：從請求中獲取用戶名

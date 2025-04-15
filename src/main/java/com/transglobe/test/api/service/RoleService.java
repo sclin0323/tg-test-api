@@ -17,6 +17,6 @@ public interface RoleService {
 	
 	public Optional<Role> update(Role o);
 
-	public Boolean delete(Role o);
+	public Boolean delete(String id);
 
 }
