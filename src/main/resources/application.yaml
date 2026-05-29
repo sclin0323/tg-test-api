@@ -1,0 +1,24 @@
+app:
+  auth:
+    google:
+      client-id: 239096853267-3evqqe98ulbb6rhjqrf1fpens9ont7ck.apps.googleusercontent.com
+
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+
+  web:
+    resources:
+      add-mappings: true
+
+server:
+  forward-headers-strategy: framework
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs

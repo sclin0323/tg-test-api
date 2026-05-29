@@ -1,0 +1,21 @@
+app:
+  auth:
+    google:
+      mock: false   # 本地測試不需要真實 Google OAuth
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://junction.proxy.rlwy.net:38143/railway
+    username: postgres
+    password: RsaZZLRGfilVdEJJMhvIdIQoGYNueRdF
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+logging:
+  level:
+    com.the101: DEBUG

@@ -1,0 +1,28 @@
+# src/test/resources/application-test.yml
+# 測試環境設定 - 絕對不可指向 production!
+
+app:
+  auth:
+    google:
+      mock: true   # bypass Google OAuth,使用假 token
+
+spring:
+  datasource:
+    # ⚠️ 一定要是測試專用 DB,URL 必須包含 "test" 字樣
+    url: jdbc:postgresql://junction.proxy.rlwy.net:38143/railway
+    username: postgres
+    password: RsaZZLRGfilVdEJJMhvIdIQoGYNueRdF
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none   # 不自動建表(你已有 schema)
+    show-sql: false    # 想 debug 時改 true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.the101: DEBUG
+    org.springframework.web: INFO
