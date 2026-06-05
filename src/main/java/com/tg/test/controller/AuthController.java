@@ -1,14 +1,12 @@
 package com.tg.test.controller;
 
-import com.tg.test.data.entity.AccessToken;
 import com.tg.test.service.AccessTokenService;
+import com.tg.test.service.TokenInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -18,27 +16,18 @@ public class AuthController {
 
     private final AccessTokenService accessTokenService;
 
-    @Operation(summary = "產生 Access Token（主系統呼叫）")
+    @Operation(summary = "產生 Access Token")
     @PostMapping("/token")
-    public ResponseEntity<GenerateResponse> generate(@RequestBody GenerateRequest req) {
-        AccessToken token = accessTokenService.generate(
-                req.username(), req.displayName(), req.email(), req.role());
-        return ResponseEntity.ok(new GenerateResponse(token.getToken(), token.getExpiresAt()));
+    public ResponseEntity<TokenInfo> generate(@RequestBody GenerateRequest req) {
+        return ResponseEntity.ok(
+                accessTokenService.generate(req.username(), req.displayName(), req.email(), req.role()));
     }
 
-    @Operation(summary = "驗證 Access Token（APEX 呼叫）")
+    @Operation(summary = "驗證 Access Token")
     @GetMapping("/verify")
-    public ResponseEntity<VerifyResponse> verify(@RequestParam String token) {
-        AccessToken accessToken = accessTokenService.verify(token);
-        return ResponseEntity.ok(new VerifyResponse(
-                accessToken.getUsername(),
-                accessToken.getDisplayName(),
-                accessToken.getEmail(),
-                accessToken.getRole()
-        ));
+    public ResponseEntity<TokenInfo> verify(@RequestParam String token) {
+        return ResponseEntity.ok(accessTokenService.verify(token));
     }
 
     public record GenerateRequest(String username, String displayName, String email, String role) {}
-    public record GenerateResponse(String token, LocalDateTime expiresAt) {}
-    public record VerifyResponse(String username, String displayName, String email, String role) {}
 }
