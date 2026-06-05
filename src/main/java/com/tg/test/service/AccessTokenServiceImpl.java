@@ -8,15 +8,15 @@ import java.util.Map;
 public class AccessTokenServiceImpl implements AccessTokenService {
 
     private static final Map<String, TokenInfo> MOCK_TOKENS = Map.of(
-        "ya29.A0ARrdaM-Alice-FinMgr-x8Kz2QpLmNvRtWsYbDcEfGhJiKlMnOpQrStUvWxYz",
-            new TokenInfo("ya29.A0ARrdaM-Alice-FinMgr-x8Kz2QpLmNvRtWsYbDcEfGhJiKlMnOpQrStUvWxYz",
-                "alice", "Alice 財務主管", "alice@demo.com", "ADMIN"),
-        "ya29.A0ARrdaM-Bob-Accountant-p3Hn7FqKjLmNwRsXuVtYzAbCdEfGhIjKlMnOpQrSt",
-            new TokenInfo("ya29.A0ARrdaM-Bob-Accountant-p3Hn7FqKjLmNwRsXuVtYzAbCdEfGhIjKlMnOpQrSt",
-                "bob", "Bob 會計人員", "bob@demo.com", "FINANCE"),
-        "ya29.A0ARrdaM-Carol-Reviewer-m6Gt9EpJiKlNvQtWuXyZaBcDeFgHiJkLmNoPqRsTuV",
-            new TokenInfo("ya29.A0ARrdaM-Carol-Reviewer-m6Gt9EpJiKlNvQtWuXyZaBcDeFgHiJkLmNoPqRsTuV",
-                "carol", "Carol 審核人員", "carol@demo.com", "REVIEWER")
+        "ya29.A0ARrdaM-SAM-LinShangChun-x8Kz2QpLmNvRtWsYbDcEfGhJiKlMnOpQrStUvWxYz",
+            new TokenInfo("ya29.A0ARrdaM-SAM-LinShangChun-x8Kz2QpLmNvRtWsYbDcEfGhJiKlMnOpQrStUvWxYz",
+                "SAM", "林上淳", "sam@demo.com", "ADMIN"),
+        "ya29.A0ARrdaM-Lynn-WangJunLing-p3Hn7FqKjLmNwRsXuVtYzAbCdEfGhIjKlMnOpQrSt",
+            new TokenInfo("ya29.A0ARrdaM-Lynn-WangJunLing-p3Hn7FqKjLmNwRsXuVtYzAbCdEfGhIjKlMnOpQrSt",
+                "LYNN", "王俊翎", "lynn@demo.com", "FINANCE"),
+        "ya29.A0ARrdaM-Powei-ChangBoWei-m6Gt9EpJiKlNvQtWuXyZaBcDeFgHiJkLmNoPqRsTuV",
+            new TokenInfo("ya29.A0ARrdaM-Powei-ChangBoWei-m6Gt9EpJiKlNvQtWuXyZaBcDeFgHiJkLmNoPqRsTuV",
+                "POWEI", "張博崴", "powei@demo.com", "REVIEWER")
     );
 
     @Override

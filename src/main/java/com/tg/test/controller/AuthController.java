@@ -1,7 +1,7 @@
 package com.tg.test.controller;
 
 import com.tg.test.service.AccessTokenService;
-import com.tg.test.service.TokenInfo;
+import com.tg.test.service.AccessTokenService.TokenInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
