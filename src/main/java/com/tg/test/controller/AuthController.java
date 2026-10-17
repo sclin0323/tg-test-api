@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -18,16 +20,38 @@ public class AuthController {
 
     @Operation(summary = "產生 Access Token")
     @PostMapping("/token")
-    public ResponseEntity<TokenInfo> generate(@RequestBody GenerateRequest req) {
-        return ResponseEntity.ok(
-                accessTokenService.generate(req.username(), req.displayName(), req.email(), req.role()));
+    public ResponseEntity<Map<String, Object>> generate(@RequestBody GenerateRequest req) {
+        TokenInfo info = accessTokenService.generate(req.account(), req.name(), req.email(), req.role());
+        return ResponseEntity.ok(successResponse(Map.of(
+                "token", info.token(),
+                "account", info.account(),
+                "name", info.name()
+        )));
     }
 
     @Operation(summary = "驗證 Access Token")
     @GetMapping("/verify")
-    public ResponseEntity<TokenInfo> verify(@RequestParam String token) {
-        return ResponseEntity.ok(accessTokenService.verify(token));
+    public ResponseEntity<Map<String, Object>> verify(@RequestHeader("Authorization") String authorization) {
+        if (authorization == null || !authorization.startsWith("Bearer "))
+            return ResponseEntity.badRequest().body(Map.of("statusCode", 400, "message", "缺少 Bearer token"));
+
+        String token = authorization.substring(7); // 去掉 "Bearer "
+        TokenInfo info = accessTokenService.verify(token);
+        return ResponseEntity.ok(successResponse(Map.of(
+                "account", info.account(),
+                "name", info.name()
+        )));
     }
 
-    public record GenerateRequest(String username, String displayName, String email, String role) {}
+    // ── 統一回傳格式 ──────────────────────────────────────────────────
+    private Map<String, Object> successResponse(Object data) {
+        return Map.of(
+                "systemTime", System.currentTimeMillis(),
+                "statusCode", 200,
+                "message", "SUCCESS",
+                "data", data
+        );
+    }
+
+    public record GenerateRequest(String account, String name, String email, String role) {}
 }

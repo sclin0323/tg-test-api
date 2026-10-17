@@ -10,21 +10,21 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     private static final Map<String, TokenInfo> MOCK_TOKENS = Map.of(
         "ya29.A0ARrdaM-SAM-LinShangChun-x8Kz2QpLmNvRtWsYbDcEfGhJiKlMnOpQrStUvWxYz",
             new TokenInfo("ya29.A0ARrdaM-SAM-LinShangChun-x8Kz2QpLmNvRtWsYbDcEfGhJiKlMnOpQrStUvWxYz",
-                "SAM", "林上淳", "sam@demo.com", "ADMIN"),
+                "003512", "林上淳", "sam@demo.com", "ADMIN"),
         "ya29.A0ARrdaM-Lynn-WangJunLing-p3Hn7FqKjLmNwRsXuVtYzAbCdEfGhIjKlMnOpQrSt",
             new TokenInfo("ya29.A0ARrdaM-Lynn-WangJunLing-p3Hn7FqKjLmNwRsXuVtYzAbCdEfGhIjKlMnOpQrSt",
-                "LYNN", "王俊翎", "lynn@demo.com", "FINANCE"),
+                "003513", "王俊翎", "lynn@demo.com", "FINANCE"),
         "ya29.A0ARrdaM-Powei-ChangBoWei-m6Gt9EpJiKlNvQtWuXyZaBcDeFgHiJkLmNoPqRsTuV",
             new TokenInfo("ya29.A0ARrdaM-Powei-ChangBoWei-m6Gt9EpJiKlNvQtWuXyZaBcDeFgHiJkLmNoPqRsTuV",
-                "POWEI", "張博崴", "powei@demo.com", "REVIEWER")
+                "003514", "張博崴", "powei@demo.com", "REVIEWER")
     );
 
     @Override
     public TokenInfo generate(String username, String displayName, String email, String role) {
         return MOCK_TOKENS.values().stream()
-                .filter(t -> t.username().equals(username))
+                .filter(t -> t.account().equals(username))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("找不到 username 對應的 mock token：" + username));
+                .orElseThrow(() -> new IllegalArgumentException("找不到 account 對應的 mock token：" + username));
     }
 
     @Override
